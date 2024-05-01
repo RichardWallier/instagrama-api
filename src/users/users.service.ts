@@ -9,4 +9,8 @@ export class UsersService {
   async findOne(email: string): Promise<User | null> {
     return this.userLogic.findOne(email);
   }
+
+  async create(email: string, password: string): Promise<User | null> {
+    return this.userLogic.create(email, password);
+  }
 }

@@ -17,4 +17,12 @@ export class AuthLogic {
 
     return user;
   }
+
+  async register(email: string, password: string): Promise<User | null> {
+    const user = await this.usersService.create(email, password);
+    if (!user) {
+      throw new UnauthorizedException('error registering a new user');
+    }
+    return user;
+  }
 }
