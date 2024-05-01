@@ -9,4 +9,13 @@ export class UsersLogic {
       where: { email },
     });
   }
+
+  public async create(email: string, password: string): Promise<User | null> {
+    return this.prisma.user.create({
+      data: {
+        email,
+        password,
+      },
+    });
+  }
 }
