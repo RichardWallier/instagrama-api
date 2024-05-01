@@ -9,4 +9,8 @@ export class AuthService {
   async login(email: string, password: string): Promise<User | null> {
     return this.authLogic.login(email, password);
   }
+
+  async register(email: string, password: string): Promise<User | null> {
+    return this.authLogic.register(email, password);
+  }
 }
