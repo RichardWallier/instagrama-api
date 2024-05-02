@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { AuthLogic } from './auth.logic';
-import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +12,10 @@ export class AuthService {
     return this.authLogic.login(email, password);
   }
 
-  async register(email: string, password: string): Promise<User | null> {
+  async register(
+    email: string,
+    password: string,
+  ): Promise<{ access_token: string } | null> {
     return this.authLogic.register(email, password);
   }
 }

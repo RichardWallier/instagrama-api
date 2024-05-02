@@ -7,6 +7,7 @@ import { AllowAnon } from 'src/decorators/AllowAnon';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @AllowAnon()
   @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(@Body() loginDto: LoginDto) {
