@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { AuthLogic } from './logic/auth.logic';
+import { AuthLogic } from './auth.logic';
 import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
   constructor(private authLogic: AuthLogic) {}
 
-  async login(email: string, password: string): Promise<User | null> {
+  async login(
+    email: string,
+    password: string,
+  ): Promise<{ access_token: string } | null> {
     return this.authLogic.login(email, password);
   }
 
