@@ -1,4 +1,5 @@
 import { PrismaClient, User } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 export class UsersLogic {
   prisma = new PrismaClient();
@@ -11,10 +12,12 @@ export class UsersLogic {
   }
 
   public async create(email: string, password: string): Promise<User | null> {
+    const saltOrRounds = 10;
+    const hashed_password = await bcrypt.hash(password, saltOrRounds);
     return this.prisma.user.create({
       data: {
         email,
-        password,
+        password: hashed_password,
       },
     });
   }
