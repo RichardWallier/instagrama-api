@@ -22,7 +22,11 @@ export class AuthLogic {
     if (!isMatch) {
       throw new UnauthorizedException('invalid password or user not found');
     }
-    const payload = { sub: user.email };
+    const payload = {
+      email: user.email,
+      name: user.name,
+      surname: user.surname,
+    };
     const jwt = await this.jwtService.signAsync(payload);
     return { access_token: jwt };
   }
@@ -30,6 +34,8 @@ export class AuthLogic {
   async register(
     email: string,
     password: string,
+    name: string,
+    surname: string,
   ): Promise<{ access_token: string } | null> {
     const userExists = await this.usersService.findOne(email);
     if (userExists) {
@@ -37,13 +43,17 @@ export class AuthLogic {
         'user already exists or error registering a new user',
       );
     }
-    const user = await this.usersService.create(email, password);
+    const user = await this.usersService.create(email, password, name, surname);
     if (!user) {
       throw new UnauthorizedException(
         'user already exists or error registering a new user',
       );
     }
-    const payload = { sub: user.email };
+    const payload = {
+      email: user.email,
+      name: user.name,
+      surname: user.surname,
+    };
     const jwt = await this.jwtService.signAsync(payload);
 
     return { access_token: jwt };
