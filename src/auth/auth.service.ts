@@ -15,7 +15,9 @@ export class AuthService {
   async register(
     email: string,
     password: string,
+    name: string,
+    surname: string,
   ): Promise<{ access_token: string } | null> {
-    return this.authLogic.register(email, password);
+    return this.authLogic.register(email, password, name, surname);
   }
 }

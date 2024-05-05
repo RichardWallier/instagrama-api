@@ -2,6 +2,7 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from 'src/auth/dto/login.dto';
 import { AllowAnon } from 'src/decorators/AllowAnon';
+import { RegisterDto } from './dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -17,7 +18,12 @@ export class AuthController {
   @AllowAnon()
   @HttpCode(HttpStatus.OK)
   @Post('register')
-  register(@Body() loginDto: LoginDto) {
-    return this.authService.register(loginDto.email, loginDto.password);
+  register(@Body() registerDto: RegisterDto) {
+    return this.authService.register(
+      registerDto.email,
+      registerDto.password,
+      registerDto.name,
+      registerDto.surname,
+    );
   }
 }

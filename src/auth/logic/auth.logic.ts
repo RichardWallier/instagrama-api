@@ -18,8 +18,13 @@ export class AuthLogic {
     return user;
   }
 
-  async register(email: string, password: string): Promise<User | null> {
-    const user = await this.usersService.create(email, password);
+  async register(
+    email: string,
+    password: string,
+    name: string,
+    surname: string,
+  ): Promise<User | null> {
+    const user = await this.usersService.create(email, password, name, surname);
     if (!user) {
       throw new UnauthorizedException('error registering a new user');
     }
